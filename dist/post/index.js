@@ -245,6 +245,10 @@ module.exports = (function (e, t) {
                             t.forEach((t) => {
                                 var r;
                                 if (t.name !== undefined && t.value !== undefined) {
+                                    if (t.name.toLowerCase() === "app version") {
+                                        // Make the output bold for the "App version" fact
+                                        t.value = `<strong>${t.value}</strong>`;
+                                    }
                                     (r = f.facts) === null || r === void 0 ? void 0 : r.push(new a.Fact(t.name + ":", t.value));
                                     e++;
                                 }

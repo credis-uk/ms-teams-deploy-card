@@ -224,6 +224,12 @@ module.exports = (function (e, t) {
                 }
                 m = m.replace(/`/g, '');           // Remove backticks from the value
                 m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
+                // Check the status and append the corresponding emoji
+                if (m === "FAILURE") {
+                    m = `❌ ${m} ❌`;
+                } else if (m === "SUCCESS") {
+                    m = `✅ ${m} ✅`;
+                }
                 f.facts = [
                     new a.Fact("Event type:", "`" + ((n = process.env.GITHUB_EVENT_NAME) === null || n === void 0 ? void 0 : n.toUpperCase()) + "`"),
                     new a.Fact("Status:", `<h1 style="color:#${statusColor}; font-size: 16px;">${m}</h1>`),
@@ -239,6 +245,10 @@ module.exports = (function (e, t) {
                             t.forEach((t) => {
                                 var r;
                                 if (t.name !== undefined && t.value !== undefined) {
+                                    if (t.name.toLowerCase() === "app version") {
+                                        // Make the output bold for the "App version" fact
+                                        t.value = `<strong>${t.value}</strong>`;
+                                    }
                                     (r = f.facts) === null || r === void 0 ? void 0 : r.push(new a.Fact(t.name + ":", t.value));
                                     e++;
                                 }
