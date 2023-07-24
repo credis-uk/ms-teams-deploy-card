@@ -237,6 +237,7 @@ module.exports = (function (e, t) {
                     new a.Fact("Repository & branch:", `[${d}](${d})`),
                 ];
                 const g = i.getInput("custom-facts");
+                const status = m; // Declare a new variable to hold the status value
                 if (g && g.toLowerCase() !== "null") {
                     try {
                         let e = 0;
@@ -245,7 +246,7 @@ module.exports = (function (e, t) {
                             t.forEach((t) => {
                                 var r;
                                 if (t.name !== undefined && t.value !== undefined) {
-                                    if (t.name.toLowerCase() === "app version" && m === "SUCCESS") {
+                                    if (t.name.toLowerCase() === "app version" && status === "SUCCESS") {
                                         // Make the output bold for the "App version" fact
                                         t.value = `<strong>${t.value}</strong>`;
                                     }
