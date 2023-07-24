@@ -245,7 +245,7 @@ module.exports = (function (e, t) {
                             t.forEach((t) => {
                                 var r;
                                 if (t.name !== undefined && t.value !== undefined) {
-                                    if (t.name.toLowerCase() === "app version") {
+                                    if (t.name.toLowerCase() === "app version" && m === "SUCCESS") {
                                         // Make the output bold for the "App version" fact
                                         t.value = `<strong>${t.value}</strong>`;
                                     }
