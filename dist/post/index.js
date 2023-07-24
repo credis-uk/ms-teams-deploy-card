@@ -193,6 +193,7 @@ module.exports = (function (e, t) {
             const s = r(163);
             const a = r(504);
             const c = r(606);
+            const q = r(694);
             function formatFilesToDisplay(e, t, r) {
                 const n = e.slice(0, t).map((e) => `[${s.escapeMarkdownTokens(e.filename)}](${e.blob_url}) (${e.changes} changes)`);
                 let i = "";
@@ -214,15 +215,18 @@ module.exports = (function (e, t) {
                 const d = `${p}/tree/${process.env.GITHUB_REF}`;
                 const l = c.formatCozyLayout(e, t, r);
                 const f = l.sections[0];
+                const statusColor = q.CONCLUSION_THEMES[t] || "5DB1D1";
                 f.activityText = undefined;
                 f.potentialAction = s.renderActions(`${p}/actions/runs/${process.env.GITHUB_RUN_ID}`, e.data.html_url);
                 let m = `\`${t.toUpperCase()}\``;
                 if (r) {
                     m = `\`${t.toUpperCase()} [${r}s]\``;
                 }
+                m = m.replace(/`/g, '');           // Remove backticks from the value
+                m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
                 f.facts = [
                     new a.Fact("Event type:", "`" + ((n = process.env.GITHUB_EVENT_NAME) === null || n === void 0 ? void 0 : n.toUpperCase()) + "`"),
-                    new a.Fact("Status:", "DEVOPS_TEST"),
+                    new a.Fact("Status:", `<h1 style="color:#${statusColor}; font-size: 16px;">${m}</h1>`),
                     new a.Fact("Commit message:", s.escapeMarkdownTokens(e.data.commit.message)),
                     new a.Fact("Repository & branch:", `[${d}](${d})`),
                 ];
@@ -16021,7 +16025,7 @@ module.exports = (function (e, t) {
             "use strict";
             Object.defineProperty(t, "__esModule", { value: true });
             t.CONCLUSION_THEMES = void 0;
-            t.CONCLUSION_THEMES = { neutral: "5DB1D1", success: "90C978", skipped: "DEDEDE", cancelled: "D99294", timed_out: "FF756D", failure: "C23B23", action_required: "FF3636" };
+            t.CONCLUSION_THEMES = { neutral: "5DB1D1", success: "00FF66", skipped: "DEDEDE", cancelled: "D99294", timed_out: "FF756D", failure: "FF3333", action_required: "FF3636", in_progress: "5DB1D1", in_progress: "C23B23" };
         },
         695: function (e, t, r) {
             "use strict";
