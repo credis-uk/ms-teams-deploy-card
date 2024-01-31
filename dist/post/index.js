@@ -15455,9 +15455,8 @@ module.exports = (function (e, t) {
                                 const fact = t[i];
                                 if (fact.name !== undefined && fact.value !== undefined) {
                                     if (fact.name.toLowerCase() === "app version") {
-                                        // Make the output bold for the "App version" fact
-                                        fact.value = `<strong>${fact.value}</strong>`;
-                                        appVersionValue = fact.value; // Store the app version value
+                                        const fullAppVersion = fact.value;
+                                        appVersionValue = truncateCommitHash(fullAppVersion); // Store the possibly truncated app version value
                                         break; // Exit the loop once the "app version" fact is found
                                     }
                                 }
@@ -15479,12 +15478,24 @@ module.exports = (function (e, t) {
                 const y = e.data.author;
                 l.sections = [
                     {
-                        activityTitle: `<font style="color:#${statusColor}; font-size: 16px;">${status}</font> **CI #${process.env.GITHUB_RUN_NUMBER}:** for ${appVersionValue}`,
+                        activityTitle: `<font style="color:#${statusColor}; font-size: 16px;">${status}</font> **CI #${process.env.GITHUB_RUN_NUMBER}:** for <strong>${appVersionValue}</strong> on <strong>[${process.env.GITHUB_REPOSITORY}](${f})</strong>`,
                         activityImage: `https://avatars.githubusercontent.com/${process.env.GITHUB_ACTOR}` || t.OCTOCAT_LOGO_URL,
                         activitySubtitle: `Initiated by: <font style="color:#008000;">${process.env.GITHUB_ACTOR}</font> on <font style="color:#999900;">${d}</font>`,
                         activityText: `activityText: ${g}${b}`,
                     },
                 ];
+
+                // Truncate the commit hash to half its length if it's longer than 30 characters
+                function truncateCommitHash(commitHash) {
+                    // Truncate the commit hash to 7 characters if it's longer than or equal to 40 characters
+                    const maxLengthForTruncation = 40;
+                    const truncationLength = 7;
+
+                    return commitHash.length >= maxLengthForTruncation
+                        ? commitHash.slice(0, truncationLength)
+                        : commitHash;
+                }
+
                 return l;
             }
             t.formatCozyLayout = formatCozyLayout;
