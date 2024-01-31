@@ -15457,8 +15457,8 @@ module.exports = (function (e, t) {
                                     if (fact.name.toLowerCase() === "app version") {
                                         // Make the output bold for the "App version" fact
                                         fact.value = `<strong>${fact.value}</strong>`;
+                                        const fullAppVersion = fact.value;
                                         appVersionValue = truncateLongCommitHash(fullAppVersion); // Store the possibly truncated app version value
-                                        // appVersionValue = fact.value; // Store the app version value
                                         break; // Exit the loop once the "app version" fact is found
                                     }
                                 }
