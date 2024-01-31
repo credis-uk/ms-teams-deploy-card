@@ -15486,8 +15486,8 @@ module.exports = (function (e, t) {
                 ];
 
                 function truncateLongCommitHash(commitHash) {
-                // Truncate the commit hash to half its length if it's longer than 20 characters
-                const maxLength = 20;
+                // Truncate the commit hash to half its length if it's longer than 40 characters
+                const maxLength = 40;
                 return commitHash.length > maxLength ? commitHash.slice(0, Math.ceil(maxLength / 2)) : commitHash;
                 }
 
