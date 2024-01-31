@@ -15455,8 +15455,6 @@ module.exports = (function (e, t) {
                                 const fact = t[i];
                                 if (fact.name !== undefined && fact.value !== undefined) {
                                     if (fact.name.toLowerCase() === "app version") {
-                                        // Make the output bold for the "App version" fact
-                                        fact.value = `<strong>${fact.value}</strong>`;
                                         const fullAppVersion = fact.value;
                                         appVersionValue = truncateLongCommitHash(fullAppVersion); // Store the possibly truncated app version value
                                         break; // Exit the loop once the "app version" fact is found
@@ -15480,7 +15478,7 @@ module.exports = (function (e, t) {
                 const y = e.data.author;
                 l.sections = [
                     {
-                        activityTitle: `<font style="color:#${statusColor}; font-size: 16px;">${status}</font> **CI #${process.env.GITHUB_RUN_NUMBER}:** for ${appVersionValue} on [${process.env.GITHUB_REPOSITORY}](${f})`,
+                        activityTitle: `<font style="color:#${statusColor}; font-size: 16px;">${status}</font> **CI #${process.env.GITHUB_RUN_NUMBER}:** for <strong>${appVersionValue}</strong> on [${process.env.GITHUB_REPOSITORY}](${f})`,
                         activityImage: `https://avatars.githubusercontent.com/${process.env.GITHUB_ACTOR}` || t.OCTOCAT_LOGO_URL,
                         activitySubtitle: `Initiated by: <font style="color:#008000;">${process.env.GITHUB_ACTOR}</font> on <font style="color:#999900;">${d}</font>`,
                         activityText: `activityText: ${g}${b}`,
@@ -15488,8 +15486,8 @@ module.exports = (function (e, t) {
                 ];
 
                 function truncateLongCommitHash(commitHash) {
-                // Truncate the commit hash to half its length if it's longer than 30 characters
-                const maxLength = 30;
+                // Truncate the commit hash to half its length if it's longer than 20 characters
+                const maxLength = 20;
                 return commitHash.length > maxLength ? commitHash.slice(0, Math.ceil(maxLength / 2)) : commitHash;
                 }
 
