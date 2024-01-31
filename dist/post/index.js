@@ -15406,6 +15406,7 @@ module.exports = (function (e, t) {
             Object.defineProperty(t, "__esModule", { value: true });
             t.formatCozyLayout = t.OCTOCAT_LOGO_URL = void 0;
             const i = n(r(717));
+            const q = n(r(521));
             const o = r(470);
             const s = r(504);
             const a = r(694);
@@ -15426,16 +15427,62 @@ module.exports = (function (e, t) {
                 if (M !== "") {
                     g += ` \`ENV:${M.toUpperCase()}\``;
                 }
-                l.themeColor = a.CONCLUSION_THEMES[r] || "957DAD";
+
+                const statusColor = a.CONCLUSION_THEMES[r] || "5DB1D1";
+                l.themeColor = statusColor;
+
+                // Put status in the title
+                let status = `\`${r.toUpperCase()}\``;
+                if (n) {
+                    status = `\`${r.toUpperCase()} [${n}s]\``;
+                }
+                status = status.replace(/`/g, '');           // Remove backticks from the value
+                status = status.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
+                // Check the status and append the corresponding emoji
+                if (status === "FAILURE") {
+                    status = `❌ ${status} ❌`;
+                } else if (status === "SUCCESS") {
+                    status = `✅ ${status} ✅`;
+                }
+                // Extract the app version from the custom facts
+                const w = o.getInput("custom-facts");
+                let appVersionValue; // Variable to store the app version value
+                if (w && w.toLowerCase() !== "null") {
+                    try {
+                        const t = q.default.parse(w);
+                        if (Array.isArray(t)) {
+                            for (let i = 0; i < t.length; i++) {
+                                const fact = t[i];
+                                if (fact.name !== undefined && fact.value !== undefined) {
+                                    if (fact.name.toLowerCase() === "app version") {
+                                        // Make the output bold for the "App version" fact
+                                        fact.value = `<strong>${fact.value}</strong>`;
+                                        appVersionValue = fact.value; // Store the app version value
+                                        break; // Exit the loop once the "app version" fact is found
+                                    }
+                                }
+                            }
+                        }
+                        if (appVersionValue !== undefined) {
+                            // Now you can use the appVersionValue variable elsewhere in your code
+                            o.info(`App version: ${appVersionValue}`);
+                        } else {
+                            o.info("App version not found in custom facts.");
+                        }
+                    } catch (e) {
+                        o.warning("Invalid custom-facts value.");
+                    }
+                }
+
                 const h = c.renderActions(`${f}/actions/runs/${process.env.GITHUB_RUN_ID}`, e.data.html_url);
                 const b = h.map((e) => ` &nbsp; &nbsp; [${e.name}](${e.target})`).join("");
                 const y = e.data.author;
                 l.sections = [
                     {
-                        activityTitle: `**CI #${process.env.GITHUB_RUN_NUMBER} (commit ${m})** on [${process.env.GITHUB_REPOSITORY}](${f})`,
-                        activityImage: (y === null || y === void 0 ? void 0 : y.avatar_url) || t.OCTOCAT_LOGO_URL,
-                        activitySubtitle: y ? `by [@${y.login}](${y.html_url}) on ${d}` : d,
-                        activityText: `${g}${b}`,
+                        activityTitle: `<font style="color:#${statusColor}; font-size: 16px;">${status}</font> **CI #${process.env.GITHUB_RUN_NUMBER}:** for ${appVersionValue}`,
+                        activityImage: `https://avatars.githubusercontent.com/${process.env.GITHUB_ACTOR}` || t.OCTOCAT_LOGO_URL,
+                        activitySubtitle: `Initiated by: <font style="color:#008000;">${process.env.GITHUB_ACTOR}</font> on <font style="color:#999900;">${d}</font>`,
+                        activityText: `activityText: ${g}${b}`,
                     },
                 ];
                 return l;
