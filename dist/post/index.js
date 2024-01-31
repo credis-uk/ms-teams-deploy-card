@@ -15418,7 +15418,7 @@ module.exports = (function (e, t) {
                 const d = i.default().tz(p).format("dddd, MMMM Do YYYY, h:mm:ss a z");
                 const l = new s.WebhookBody();
                 const f = `https://github.com/${process.env.GITHUB_REPOSITORY}`;
-                const m = (u = process.env.GITHUB_SHA) === null || u === void 0 ? void 0 : u.substr(0, 7);
+                // const m = (u = process.env.GITHUB_SHA) === null || u === void 0 ? void 0 : u.substr(0, 7);
                 let g = `\`${r.toUpperCase()}\``;
                 if (n) {
                     g = `\`${r.toUpperCase()} [${n}s]\``;
@@ -15456,7 +15456,10 @@ module.exports = (function (e, t) {
                                 if (fact.name !== undefined && fact.value !== undefined) {
                                     if (fact.name.toLowerCase() === "app version") {
                                         const fullAppVersion = fact.value;
-                                        appVersionValue = truncateCommitHash(fullAppVersion); // Store the possibly truncated app version value
+                                        appVersionValue = fullAppVersion === process.env.GITHUB_SHA
+                                            ? process.env.GITHUB_SHA.substr(0, 7)
+                                            : fullAppVersion;
+
                                         break; // Exit the loop once the "app version" fact is found
                                     }
                                 }
@@ -15484,17 +15487,6 @@ module.exports = (function (e, t) {
                         activityText: `activityText: ${g}${b}`,
                     },
                 ];
-
-                // Truncate the commit hash to half its length if it's longer than 30 characters
-                function truncateCommitHash(commitHash) {
-                    // Truncate the commit hash to 7 characters if it's longer than or equal to 40 characters
-                    const maxLengthForTruncation = 40;
-                    const truncationLength = 7;
-
-                    return commitHash.length >= maxLengthForTruncation
-                        ? commitHash.slice(0, truncationLength)
-                        : commitHash;
-                }
 
                 return l;
             }
