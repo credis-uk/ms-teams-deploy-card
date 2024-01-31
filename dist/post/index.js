@@ -15456,7 +15456,7 @@ module.exports = (function (e, t) {
                                 if (fact.name !== undefined && fact.value !== undefined) {
                                     if (fact.name.toLowerCase() === "app version") {
                                         const fullAppVersion = fact.value;
-                                        appVersionValue = truncateLongCommitHash(fullAppVersion); // Store the possibly truncated app version value
+                                        appVersionValue = truncateCommitHash(fullAppVersion); // Store the possibly truncated app version value
                                         break; // Exit the loop once the "app version" fact is found
                                     }
                                 }
@@ -15485,10 +15485,15 @@ module.exports = (function (e, t) {
                     },
                 ];
 
-                function truncateLongCommitHash(commitHash) {
-                // Truncate the commit hash to half its length if it's longer than 40 characters
-                const maxLength = 40;
-                return commitHash.length > maxLength ? commitHash.slice(0, Math.ceil(maxLength / 2)) : commitHash;
+                // Truncate the commit hash to half its length if it's longer than 30 characters
+                function truncateCommitHash(commitHash) {
+                    // Truncate the commit hash to 7 characters if it's longer than or equal to 40 characters
+                    const maxLengthForTruncation = 40;
+                    const truncationLength = 7;
+
+                    return commitHash.length >= maxLengthForTruncation
+                        ? commitHash.slice(0, truncationLength)
+                        : commitHash;
                 }
 
                 return l;
