@@ -15419,24 +15419,24 @@ module.exports = (function (e, t) {
                 const l = new s.WebhookBody();
                 const f = `https://github.com/${process.env.GITHUB_REPOSITORY}`;
                 // const m = (u = process.env.GITHUB_SHA) === null || u === void 0 ? void 0 : u.substr(0, 7);
-                let g = '';
-                if (r) {
-                    g = `\`${r.toUpperCase()}\``;
-                }
-                if (n) {
-                    g += ` [${n}s]`;
-                }
-                const M = o.getInput("environment");
-                if (M !== "") {
-                    g += ` \`ENV:${M.toUpperCase()}\``;
-                }
+                // let g = `\`${r.toUpperCase()}\``;
+                // if (n) {
+                //     g = `\`${r.toUpperCase()} [${n}s]\``;
+                // }
+                // const M = o.getInput("environment");
+                // if (M !== "") {
+                //     g += ` \`ENV:${M.toUpperCase()}\``;
+                // }
                 const statusColor = a.CONCLUSION_THEMES[r] || "5DB1D1";
                 l.themeColor = statusColor;
 
                 // Put status in the title
-                let status = `\`${r.toUpperCase()}\``;
+                let status = ``;
+                if (r) {
+                    status = `\`${r.toUpperCase()}\``;
+                }
                 if (n) {
-                    status = `\`${r.toUpperCase()} [${n}s]\``;
+                    status += ` [${n}s]`;
                 }
                 status = status.replace(/`/g, '');           // Remove backticks from the value
                 status = status.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
