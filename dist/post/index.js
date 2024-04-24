@@ -15419,7 +15419,7 @@ module.exports = (function (e, t) {
                 const l = new s.WebhookBody();
                 const f = `https://github.com/${process.env.GITHUB_REPOSITORY}`;
                 // const m = (u = process.env.GITHUB_SHA) === null || u === void 0 ? void 0 : u.substr(0, 7);
-                let g = `\`${r.toUpperCase()}\``;
+                let g = r ? `\`${r.toUpperCase()}\`` : '';
                 if (n) {
                     g = `\`${r.toUpperCase()} [${n}s]\``;
                 }
