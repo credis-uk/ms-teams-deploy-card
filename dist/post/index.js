@@ -218,9 +218,13 @@ module.exports = (function (e, t) {
                 const statusColor = q.CONCLUSION_THEMES[t] || "5DB1D1";
                 f.activityText = undefined;
                 f.potentialAction = s.renderActions(`${p}/actions/runs/${process.env.GITHUB_RUN_ID}`, e.data.html_url);
-                let m = `\`${t.toUpperCase()}\``;
+                let m = '';
+                if (t) {
+                    m = `\`${t.toUpperCase()}\``;
+                }
+                
                 if (r) {
-                    m = `\`${t.toUpperCase()} [${r}s]\``;
+                    m += ` [${r}s]`;
                 }
                 m = m.replace(/`/g, '');           // Remove backticks from the value
                 m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
