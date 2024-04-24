@@ -15422,6 +15422,7 @@ module.exports = (function (e, t) {
                 let g = '';
                 if (r) {
                     g = `\`${r.toUpperCase()}\``;
+                }
                 if (n) {
                     g += ` [${n}s]`;
                 }
@@ -15429,7 +15430,6 @@ module.exports = (function (e, t) {
                 if (M !== "") {
                     g += ` \`ENV:${M.toUpperCase()}\``;
                 }
-
                 const statusColor = a.CONCLUSION_THEMES[r] || "5DB1D1";
                 l.themeColor = statusColor;
 
