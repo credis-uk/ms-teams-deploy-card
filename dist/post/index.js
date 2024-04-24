@@ -15400,7 +15400,7 @@ module.exports = (function (e, t) {
         605: function (e) {
             e.exports = require("http");
         },
-        606: function (e, t, r) {
+        §: function (e, t, r) {
             "use strict";
             var n =
                 (this && this.__importDefault) ||
@@ -15442,6 +15442,9 @@ module.exports = (function (e, t) {
                 if (r) {
                     status = `\`${r.toUpperCase()}\``;
                 }
+                console.debug('Console Debug: r: ', r)
+                console.debug('Console Debug: status: ', status)
+                console.debug('Console Debug: g: ', g)
                 // if (n) {
                 //     status += ` [${n}s]`;
                 // }
