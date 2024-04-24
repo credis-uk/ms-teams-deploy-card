@@ -15438,15 +15438,15 @@ module.exports = (function (e, t) {
                 l.themeColor = statusColor;
 
                 // Put status in the title
-                let status = ``;
+                let status = `NULL`;
                 if (r) {
                     status = `\`${r.toUpperCase()}\``;
                 }
-                if (n) {
-                    status += ` [${n}s]`;
-                }
-                status = status.replace(/`/g, '');           // Remove backticks from the value
-                status = status.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
+                // if (n) {
+                //     status += ` [${n}s]`;
+                // }
+                //status = status.replace(/`/g, '');           // Remove backticks from the value
+                // status = status.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
                 // Check the status and append the corresponding emoji
                 if (status === "FAILURE") {
                     status = `❌ ${status} ❌`;
