@@ -218,16 +218,16 @@ module.exports = (function (e, t) {
                 const statusColor = q.CONCLUSION_THEMES[t] || "5DB1D1";
                 f.activityText = undefined;
                 f.potentialAction = s.renderActions(`${p}/actions/runs/${process.env.GITHUB_RUN_ID}`, e.data.html_url);
-                let m = '';
+                let m = `✅ OK ✅`;
                 if (t) {
                     m = `\`${t.toUpperCase()}\``;
                 }
                 
-                if (r) {
-                    m += ` [${r}s]`;
-                }
-                m = m.replace(/`/g, '');           // Remove backticks from the value
-                m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
+                // if (r) {
+                //     m += ` [${r}s]`;
+                // }
+                // m = m.replace(/`/g, '');           // Remove backticks from the value
+                // m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
                 // Check the status and append the corresponding emoji
                 if (m === "FAILURE") {
                     m = `❌ ${m} ❌`;
@@ -15438,7 +15438,7 @@ module.exports = (function (e, t) {
                 l.themeColor = statusColor;
 
                 // Put status in the title
-                let status = `NULL`;
+                let status = `✅ OK ✅`;
                 if (r) {
                     status = `\`${r.toUpperCase()}\``;
                 }
