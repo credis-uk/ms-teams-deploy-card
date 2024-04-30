@@ -226,7 +226,7 @@ module.exports = (function (e, t) {
                 // if (r) {
                 //     m += ` [${r}s]`;
                 // }
-                // m = m.replace(/`/g, '');           // Remove backticks from the value
+                m = m.replace(/`/g, '');           // Remove backticks from the value
                 // m = m.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
                 // Check the status and append the corresponding emoji
                 if (m === "FAILURE") {
@@ -15448,7 +15448,7 @@ module.exports = (function (e, t) {
                 // if (n) {
                 //     status += ` [${n}s]`;
                 // }
-                //status = status.replace(/`/g, '');           // Remove backticks from the value
+                status = status.replace(/`/g, '');           // Remove backticks from the value
                 // status = status.replace(/\s*\[\d+s\]$/, ''); // Remove the brackets and seconds from the status
                 // Check the status and append the corresponding emoji
                 if (status === "FAILURE") {
